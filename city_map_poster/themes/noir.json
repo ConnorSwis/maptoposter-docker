@@ -1,0 +1,20 @@
+{
+  "name": "Noir",
+  "description": "Pure black background with white/gray roads - modern gallery aesthetic",
+  "bg": "#000000",
+  "text": "#FFFFFF",
+  "gradient_color": "#000000",
+  "water": "#0A0A0A",
+  "parks": "#111111",
+  "road_motorway": "#FFFFFF",
+  "road_primary": "#E0E0E0",
+  "road_secondary": "#B0B0B0",
+  "road_tertiary": "#808080",
+  "road_residential": "#505050",
+  "road_default": "#808080",
+  "rail": "#C0C0C0",
+  "buildings": "#1A1A1A",
+  "forest": "#2A2A2A",
+  "rivers": "#0A0A0A",
+  "coastline": "#0A0A0A"
+}

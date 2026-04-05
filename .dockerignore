@@ -1,3 +1,5 @@
+posters/*
+.venv/
 cache/*
 env/
 .env/
@@ -9,6 +11,7 @@ cache/
 .venv/
 *.png
 .DS_Store
+*.pkl
 __pycache__/
 *.pyc
 *.pyo
@@ -34,4 +37,12 @@ outputs/
 Thumbs.db
 .env
 .env.*
-*.pkl
+cache/
+posters/
+city_map_poster/.cache/
+city_map_poster/**/.cache/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.git/

@@ -1,0 +1,23 @@
+{
+    "name": "Cobb",
+    "description": "Deep teal base with clean whites, cool grays, and restrained red accents",
+    "bg": "#1C4E60",
+    "gradient_color": "#173F4D",
+    "text": "#F8FAF9",
+    "text_secondary": "#8B9497",
+    "water": "#2A6478",
+    "rivers": "#2F738A",
+    "coastline": "#2F738A",
+    "parks": "#2F6B5F",
+    "forest": "#3A7A6A",
+    "road_motorway": "#AB262B",
+    "road_primary": "#8B2325",
+    "road_secondary": "#6D2325",
+    "road_tertiary": "#8B9497",
+    "road_residential": "#AEB6BA",
+    "road_default": "#8B9497",
+    "rail": "#F8FAF9",
+    "buildings": "#4E6A74",
+    "boundaries": "#5F7F8A",
+    "labels_outline": "#173F4D"
+}

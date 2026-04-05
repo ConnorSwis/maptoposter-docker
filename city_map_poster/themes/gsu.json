@@ -1,0 +1,19 @@
+{
+    "name": "GSU",
+    "description": "Georgia State University inspired theme — blue field, white roads, red accents, monochrome buildings",
+    "bg": "#0039A6",
+    "text": "#FFFFFF",
+    "gradient_color": "#00245E",
+    "water": "#002B7A",
+    "road_motorway": "#FFFFFF",
+    "road_primary": "#EDEDED",
+    "road_secondary": "#D6D6D6",
+    "road_tertiary": "#BFC3C9",
+    "road_residential": "#A9AFB8",
+    "road_default": "#D6D6D6",
+    "rail": "#CC0000",
+    "buildings": "#002E82",
+    "parks": "#1F4FBF",
+    "forest": "#1A469E",
+    "coastline": "#002B7A"
+}

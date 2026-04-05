@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MapToPoster</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>MapToPoster Generator</h1>
+      <div class="main-content">
+        <div class="card control-panel">
+          <form id="mapForm">
+            <div class="form-fields">
+              <label
+                >City
+                <input
+                  type="text"
+                  id="city"
+                  placeholder="e.g. Port Louis"
+                  required
+              /></label>
+              <label
+                >Country
+                <input
+                  type="text"
+                  id="country"
+                  placeholder="e.g. Mauritius"
+                  required
+              /></label>
+              <details class="coord-dropdown">
+                <summary>Optional: Custom map center</summary>
+
+                <label>
+                  Center latitude
+                  <input
+                    type="text"
+                    inputmode="numeric"
+                    id="lat"
+                    placeholder="e.g. 48.8566"
+                    step="any"
+                  />
+                </label>
+
+                <label>
+                  Center longitude
+                  <input
+                    type="text"
+                    inputmode="numeric"
+                    id="lon"
+                    placeholder="e.g. 2.3522"
+                    step="any"
+                  />
+                </label>
+
+                <label>
+                  Star latitude
+                  <input
+                    type="text"
+                    inputmode="numeric"
+                    id="starLat"
+                    placeholder="e.g. 48.8584"
+                    step="any"
+                  />
+                </label>
+
+                <label>
+                  Star longitude
+                  <input
+                    type="text"
+                    inputmode="numeric"
+                    id="starLon"
+                    placeholder="e.g. 2.2945"
+                    step="any"
+                  />
+                </label>
+              </details>
+
+              <label
+                >Theme
+                <select id="theme">
+                  {% for theme in themes %}
+                  <option value="{{ theme.id }}" title="{{ theme.description }}">
+                    {{ theme.name }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </label>
+
+              <label>Features</label>
+              <div id="features" class="features-list">
+                {% for feature in features %}
+                <label class="feature-item">
+                  <input
+                    type="checkbox"
+                    class="feature-checkbox"
+                    value="{{ feature.id }}"
+                  />
+                  <span>{{ feature.name }}</span>
+                </label>
+                {% endfor %}
+              </div>
+
+              <label
+                >Zoom (<span id="radiusVal">5</span> km)
+                <input
+                  type="range"
+                  id="radius"
+                  min="100"
+                  max="30000"
+                  step="100"
+                  value="5000"
+                />
+              </label>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" id="generateBtn">Generate Map</button>
+              <div id="errorMsg" class="error"></div>
+            </div>
+          </form>
+        </div>
+
+        <div class="card result-panel">
+          <div class="result-inner">
+            <div id="loader" class="loader hidden" aria-live="polite">
+              Generating map...
+            </div>
+            <div id="progressPanel" class="progress hidden">
+              <div class="progress-header">
+                <span>Progress</span>
+                <span id="progressCurrent" class="progress-current"></span>
+              </div>
+              <ol id="stageList" class="stage-list"></ol>
+            </div>
+            <img id="resultImage" class="hidden" />
+            <a id="downloadLink" href="#" class="btn-download hidden"
+              >⬇️ Download PNG</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/static/script.js"></script>
+</html>

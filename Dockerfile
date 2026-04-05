@@ -1,9 +1,8 @@
 # --- STAGE 1 : BUILDER (Compilation) ---
-FROM python:3.11-slim AS builder
+FROM python:3.14-slim AS builder
 
 # 1. Build tools
 RUN apt-get update && apt-get install -y \
-    git \
     build-essential \
     libspatialindex-dev \
     && rm -rf /var/lib/apt/lists/*
@@ -12,37 +11,38 @@ WORKDIR /app
 
 # 2. Isolated virtualenv
 RUN python -m venv /opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
+ENV PATH="/opt/venv/bin:$PATH" \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
 
-# 3. Ultra-light clone (without history)
-RUN git clone --depth 1 https://github.com/cthonney/maptoposter-docker.git .
+# 3. Install deps (copy requirements first for better caching)
+COPY requirements.txt ./
+RUN python -m pip install --upgrade pip \
+    && python -m pip install --only-binary=:all: --no-cache-dir -r requirements.txt
 
-# 4. Install deps (Works well with Py 3.11)
-RUN pip install --no-cache-dir -r requirements.txt
+# 4. Copy the rest of the project
+COPY . .
 
 
 # --- STAGE 2 : RUNTIME (Production) ---
-FROM python:3.11-slim
+FROM python:3.14-slim
 
-# 1. System lib required for OSMnx/Rtree
-# Using the -dev version which is stable on Debian Bookworm (base of python:3.11)
+# 1. Runtime system deps
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    libspatialindex-dev \
+    libspatialindex8 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
-# 2. Copy venv and code from stage 1
+# 2. Copy venv and app from builder
 COPY --from=builder /opt/venv /opt/venv
 COPY --from=builder /app /app
 
-# 3. Security cleanup
-RUN rm -rf /app/.git
-
-# 4. Config
+# 3. Runtime config
 ENV PATH="/opt/venv/bin:$PATH"
 ENV MPLBACKEND=Agg
 
 EXPOSE 5025
 
-CMD ["python", "app.py"]
+CMD ["python", "run.py"]
